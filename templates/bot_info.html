@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디스코드 봇 서버 카운터 by koreanbots</title>
+    <link rel="icon" href="{{ data.avatar }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        /* From Uiverse.io by Yaseen549 */ 
+        .input {
+  background-color: #bdbdbd94;
+  max-width: 190px;
+  height: 15px;
+  padding: 10px;
+  margin-top: 20px;
+  /* text-align: center; */
+  border: 2px solid white;
+  border-radius: 5px;
+  /* box-shadow: 3px 3px 2px rgb(249, 255, 85); */
+        }
+
+
+        .profile-container {
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .small-text {
+            font-size: 1.2em;
+            color: #dedcdc;
+            margin-bottom: 20px;
+        }
+
+        .profile-text {
+            font-size: 2.5em;
+            color: #dedcdc;
+            margin-top: 20px;
+        }
+        /* From Uiverse.io by JaydipPrajapati1910 */ 
+.card {
+  width: 225px;
+  height: 390px;
+  margin: 0 auto;
+  background-color: #555;
+  border-radius: 8px;
+  z-index: 1;
+}
+
+.tools {
+  display: flex;
+  align-items: center;
+  padding: 9px;
+}
+
+.circle {
+  padding: 0 4px;
+}
+
+.box {
+  display: inline-block;
+  align-items: center;
+  width: 10px;
+  height: 10px;
+  padding: 1px;
+  border-radius: 50%;
+}
+
+.red {
+  background-color: #ff605c;
+}
+
+.yellow {
+  background-color: #ffbd44;
+}
+
+.green {
+  background-color: #00ca4e;
+}
+
+    </style>
+</head>
+<body>
+<div class="card">
+  <div class="tools">
+    <div class="circle">
+      <span class="red box"></span>
+    </div>
+    <div class="circle">
+      <span class="yellow box"></span>
+    </div>
+    <div class="circle">
+      <span class="green box"></span>
+    </div>
+  </div>
+  <div class="card__content">
+    <div class="profile-container">
+        <!-- 프로필 이미지 -->
+        <img src="{{ data.avatar }}" alt="Profile" class="profile-image">
+        
+        <!-- 작은 텍스트 -->
+        <div class="small-text">{{ data.name }}</div>
+
+        <!-- 큰 텍스트 -->
+        <div class="profile-text" id="number">0</div>
+        <form action="/" method="post">
+            <label for="name"><input class="input", placeholder="bot name" name="name", type="text", id="name", size="10"></label>
+        </form>
+    </div>
+  </div>
+</div>
+<script>
+    const numb = '{{ data.servers }}';
+window.onload = function(){
+    const element = document.querySelector('#number');
+    if(numb === 0){
+        element.innerHTML = '0';
+    } else {
+        let count = 0;  // 초기 카운트 값
+        const steps = 33;  // 총 33번의 스텝
+        const increment = numb / steps;  // 한 번에 증가할 값
+        let time = 0;
+
+        const interval = setInterval(() => {
+            if(count < numb){
+                count += increment;  // 증가분 더함
+                element.innerHTML = Math.round(count);  // 소수점 제거 후 표시
+                time++;
+            }
+            if(time >= steps || count >= numb){
+                clearInterval(interval);  // 목표 도달 시 종료
+                if(numb == 0) {
+                    element.innerHTML = 'None';
+                }
+                else {
+                    element.innerHTML = numb;  // 최종 값 설정
+            
+                }
+            }
+
+        }, 20);  // 20ms 간격으로 실행
+    }
+};
+</script>
+
+</body>
+</html>
